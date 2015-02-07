@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- PROFILE FRAGMENT STRINGS HERE -->
+    <string name="title_fragment_profile">Profile</string>
 
 </resources>
