@@ -1,13 +1,16 @@
 package me.teamwith.teamwithme;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
-//import com.firebase.client.AuthData;
-//import com.firebase.client.Firebase;
-//import com.firebase.client.FirebaseError;
+import java.util.List;
 
 /**
  * A login screen that offers login via email/password.
@@ -29,18 +32,27 @@ public class LoginActivity extends Activity {
 
         mLoginFormView = findViewById(R.id.login_form);
 
-//        Firebase ref = new Firebase("https://teamwithme.firebaseio.com");
-//        ref.authWithOAuthToken("github", "", new Firebase.AuthResultHandler() {
-//            @Override
-//            public void onAuthenticated(AuthData authData) {
-//                // the GitHub user is now authenticated with Firebase
-//            }
-//
-//            @Override
-//            public void onAuthenticationError(FirebaseError firebaseError) {
-//                // there was an error
-//            }
-//        });
+        ParseQuery currentUserQuery = ParseUser.getQuery();
+        currentUserQuery.whereEqualTo("username", "cupcake");
+        currentUserQuery.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> list, ParseException e) {
+
+                if (e == null) {
+                    // No ParseException
+
+                    String currentUserId = list.get(0).getObjectId();
+
+                    Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    mainIntent.putExtra("EXTRA_CURRENT_USER_ID", currentUserId);
+                    startActivity(mainIntent);
+                } else {
+                    // ParseException
+
+                    Log.d(TAG, "Could not find user.");
+                }
+            }
+        });
     }
 
  }
