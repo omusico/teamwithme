@@ -6,3 +6,6 @@
 /build
 .idea
 
+# API Keys
+api_keys.xml
+
