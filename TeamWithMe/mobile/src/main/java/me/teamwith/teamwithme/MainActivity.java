@@ -70,7 +70,7 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 2:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, BuildTeamFragment.newInstance("", ""))
+                        .replace(R.id.container, BuildTeamFragment.newInstance())
                         .commit();
                 break;
             default:
