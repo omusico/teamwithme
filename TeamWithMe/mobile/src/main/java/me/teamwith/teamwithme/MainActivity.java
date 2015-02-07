@@ -54,18 +54,18 @@ public class MainActivity extends ActionBarActivity
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, ProfileFragment.newInstance("arg1", "arg2"))
+                .replace(R.id.container, ProfileFragment.newInstance())
                 .commit();
 
         switch(position) {
             case 0:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, ProfileFragment.newInstance("", ""))
+                        .replace(R.id.container, ProfileFragment.newInstance())
                         .commit();
                 break;
             case 1:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, TeamFragment.newInstance("", ""))
+                        .replace(R.id.container, TeamFragment.newInstance())
                         .commit();
                 break;
             case 2:
