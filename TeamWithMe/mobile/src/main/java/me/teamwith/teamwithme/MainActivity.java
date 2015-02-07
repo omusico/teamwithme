@@ -1,6 +1,7 @@
 package me.teamwith.teamwithme;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, Profile.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, Profile.OnFragmentInteractionListener,
+                            Team.OnFragmentInteractionListener {
 
     public final static String TAG = "TWM";
 
@@ -55,6 +57,22 @@ public class MainActivity extends ActionBarActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, Profile.newInstance("arg1", "arg2"))
                 .commit();
+
+        switch(position) {
+            case 0:
+                // startActivity(new Intent(this, Profile.class));
+                break;
+            case 1:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, Team.newInstance("", ""))
+                        .commit();
+                break;
+            case 2:
+                // Add build a team fragment.
+                break;
+            default:
+                break;
+        }
     }
 
     public void onSectionAttached(int number) {
