@@ -1,6 +1,6 @@
 <?php
 
-require_once("simple_html_dom.php");
+require_once('simple_html_dom.php');
 
 require 'vendor/autoload.php';
 use Parse\ParseClient;
@@ -13,7 +13,7 @@ $master_key = 't74hVJqag2nX7K5YaIpCgGt8Fkr8iH4eNrmRtSXJ';
 ParseClient::initialize($app_id, $rest_key, $master_key);
 
 // First thing is first, we need to grab the entire web page for the hackathons for Spring 2015
-$url = "https://mlh.io/seasons/s2015/events";
+$url = 'https://mlh.io/seasons/s2015/events';
 
 // Get the page
 $page = file_get_html($url);
@@ -38,25 +38,34 @@ foreach ($page->find('div[class=event-wrapper]') as $e)
 	$location = $inner->find('p')[1]->innertext;
 
 	// From $date we can retrieve the start and end date of the event.
-	$dateToken = explode(" ", $date);
+	$dateToken = explode(' - ', $date);
+	$startToken = explode(' ', $dateToken[0]);
+	$endToken = explode(' ', $dateToken[1]);
 
-	// print_r($dateToken);
-	// echo "<br><br>";
+	// Set the start date.
+	$startDate = $dateToken[0];
 
-	// Extract the date stuff from the page.
-	$startDate = $dateToken[0] . " " . $dateToken[1];
-	$endDate = $dateToken[0] . " " . $dateToken[3];
+	if (count($endToken) == 1)
+	{
+		// If the end month is missing, use the start month for the end month.
+		$endDate = $startToken[0] . ' ' . $endToken[0];
+	}
+	else
+	{
+		// Set the end date.
+		$endDate = $dateToken[1];
+	}
 
-	echo $title . '<br>';
-	echo $startDate . ' to ' . $endDate . '<br>';
-	echo $location . '<br>';
-	echo 'Logo: ' . $logoUrl . '<br>';
-	echo 'Cover: ' . $coverUrl . '<br><br>';
+	// echo $title . '<br>';
+	// echo $startDate . ' to ' . $endDate . '<br>';
+	// echo $location . '<br>';
+	// echo 'Logo: ' . $logoUrl . '<br>';
+	// echo 'Cover: ' . $coverUrl . '<br><br>';
 
 	$hackathon = ParseObject::create('Hackathon');
 	$hackathon->set('name', $name);
-	// $hackathon->set('startDate', new DateTime($startDate));
-	// $hackathon->set('endDate', new DateTime($endDate));
+	$hackathon->set('startDate', new DateTime($startDate));
+	$hackathon->set('endDate', new DateTime($endDate));
 	$hackathon->set('location', $location);
 	$hackathon->set('logoUrl', $logoUrl);
 	$hackathon->set('coverUrl', $coverUrl);
@@ -65,11 +74,10 @@ foreach ($page->find('div[class=event-wrapper]') as $e)
 	// Check if hackathon name is unique ??
 	if (true)
 	{
-		// $hackathon->save();
-		
-		print_r($hackathon);
-		echo '<br><br>';
+		$hackathon->save();
 	}
 }
+
+echo 'Success';
 
 ?>
