@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7380D652-E113-4C05-91BE-7C054889A70A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TeamWithMeIOS</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>427FAE97B63A0FDD4A15D4B639909953359FE32B</key>
+		<string>bitbucket.org:ordonezalex/vthacks2015-x-shs.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TeamWithMeIOS/TeamWithMeIOS.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>427FAE97B63A0FDD4A15D4B639909953359FE32B</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>bitbucket.org:ordonezalex/vthacks2015-x-shs.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>427FAE97B63A0FDD4A15D4B639909953359FE32B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>427FAE97B63A0FDD4A15D4B639909953359FE32B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>VTHack</string>
+		</dict>
+	</array>
+</dict>
+</plist>
