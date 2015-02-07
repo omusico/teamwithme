@@ -14,6 +14,8 @@ public class DispatchActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Log.d(TAG, "Reached Dispatch Activity.");
+
         // Start Parse
         // TODO: Extract Parse keys to api_keys.xml
         Parse.enableLocalDatastore(this);
@@ -35,8 +37,6 @@ public class DispatchActivity extends ActionBarActivity {
         // End Parse Push Notifications
 
         super.onCreate(savedInstanceState);
-
-        Log.d(TAG, "Reached Dispatch Activity.");
 
         // Check if there is current user info
         if (ParseUser.getCurrentUser() != null) {

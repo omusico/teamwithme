@@ -32,10 +32,10 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Log.d(TAG, "Reached Main Activity.");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Log.d(TAG, "Reached Main Activity.");
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
