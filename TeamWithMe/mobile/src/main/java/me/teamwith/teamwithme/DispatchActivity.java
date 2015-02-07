@@ -19,7 +19,7 @@ public class DispatchActivity extends ActionBarActivity {
         // Start Parse
         // TODO: Extract Parse keys to api_keys.xml
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "v2hAXH2M27jXXzWT5ag45c72KFT4EfLuRdwSq5Ha", "tFKPvEQ4Ia5RiuipCktadRgd6i7ngceMWM94scbr");
+        Parse.initialize(this, getString(R.string.PARSE_APPLICATION_ID), getString(R.string.PARSE_CLIENT_KEY));
         // End Parse
 
         // Start Parse Push Notifications
