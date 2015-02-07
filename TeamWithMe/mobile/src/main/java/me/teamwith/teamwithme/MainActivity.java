@@ -1,7 +1,6 @@
 package me.teamwith.teamwithme;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,8 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, Profile.OnFragmentInteractionListener,
-                            Team.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, ProfileFragment.OnFragmentInteractionListener,
+                            TeamFragment.OnFragmentInteractionListener , BuildTeamFragment.OnFragmentInteractionListener {
 
     public final static String TAG = "TWM";
 
@@ -55,20 +54,24 @@ public class MainActivity extends ActionBarActivity
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, Profile.newInstance("arg1", "arg2"))
+                .replace(R.id.container, ProfileFragment.newInstance("arg1", "arg2"))
                 .commit();
 
         switch(position) {
             case 0:
-                // startActivity(new Intent(this, Profile.class));
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, ProfileFragment.newInstance("", ""))
+                        .commit();
                 break;
             case 1:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, Team.newInstance("", ""))
+                        .replace(R.id.container, TeamFragment.newInstance("", ""))
                         .commit();
                 break;
             case 2:
-                // Add build a team fragment.
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, BuildTeamFragment.newInstance("", ""))
+                        .commit();
                 break;
             default:
                 break;
