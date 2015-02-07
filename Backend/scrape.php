@@ -4,6 +4,7 @@ require_once('simple_html_dom.php');
 
 require 'vendor/autoload.php';
 use Parse\ParseClient;
+use Parse\ParseQuery;
 use Parse\ParseObject;
 
 $app_id = 'v2hAXH2M27jXXzWT5ag45c72KFT4EfLuRdwSq5Ha';
@@ -56,24 +57,20 @@ foreach ($page->find('div[class=event-wrapper]') as $e)
 		$endDate = $dateToken[1];
 	}
 
-	// echo $title . '<br>';
-	// echo $startDate . ' to ' . $endDate . '<br>';
-	// echo $location . '<br>';
-	// echo 'Logo: ' . $logoUrl . '<br>';
-	// echo 'Cover: ' . $coverUrl . '<br><br>';
+	$query = new ParseQuery('Hackathon');
+	$query->equalTo('name', $name);
 
-	$hackathon = ParseObject::create('Hackathon');
-	$hackathon->set('name', $name);
-	$hackathon->set('startDate', new DateTime($startDate));
-	$hackathon->set('endDate', new DateTime($endDate));
-	$hackathon->set('location', $location);
-	$hackathon->set('logoUrl', $logoUrl);
-	$hackathon->set('coverUrl', $coverUrl);
-	$hackathon->set('websiteUrl', $eventUrl);
-
-	// Check if hackathon name is unique ??
-	if (true)
+	// Check if hackathon name doesn't exist.
+	if (empty($query->find()))
 	{
+		$hackathon = ParseObject::create('Hackathon');
+		$hackathon->set('name', $name);
+		$hackathon->set('startDate', new DateTime($startDate));
+		$hackathon->set('endDate', new DateTime($endDate));
+		$hackathon->set('location', $location);
+		$hackathon->set('logoUrl', $logoUrl);
+		$hackathon->set('coverUrl', $coverUrl);
+		$hackathon->set('websiteUrl', $eventUrl);
 		$hackathon->save();
 	}
 }
