@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TeamWithMe</string>
-    <string name="title_section1">My Profile</string>
-    <string name="title_section2">Hackathons</string>
-    <string name="title_section3">Build a team</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="app_name">Team With Me</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

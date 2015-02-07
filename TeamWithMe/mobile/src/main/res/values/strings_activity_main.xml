@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="nav_profile">Profile</string>
+    <string name="nav_team">Team</string>
+    <string name="nav_build_team">Build a team</string>
+    <string name="navigation_drawer_open">Open navigation</string>
+    <string name="navigation_drawer_close">Close navigation</string>
+
+</resources>
