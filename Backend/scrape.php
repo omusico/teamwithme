@@ -7,6 +7,8 @@ use Parse\ParseClient;
 use Parse\ParseQuery;
 use Parse\ParseObject;
 
+date_default_timezone_set('UTC');
+
 $app_id = 'v2hAXH2M27jXXzWT5ag45c72KFT4EfLuRdwSq5Ha';
 $rest_key = 'tp9ikkY92F0Wyuwi3dq95j7D69hvBfA4rcoUYfOb';
 $master_key = 't74hVJqag2nX7K5YaIpCgGt8Fkr8iH4eNrmRtSXJ';
@@ -57,24 +59,24 @@ foreach ($page->find('div[class=event-wrapper]') as $e)
 		$endDate = $dateToken[1];
 	}
 
+	// Query for a Hackathon with a matching name.
 	$query = new ParseQuery('Hackathon');
 	$query->equalTo('name', $name);
+	$results = $query->find();
 
-	// Check if hackathon name doesn't exist.
-	if (empty($query->find()))
-	{
-		$hackathon = ParseObject::create('Hackathon');
-		$hackathon->set('name', $name);
-		$hackathon->set('startDate', new DateTime($startDate));
-		$hackathon->set('endDate', new DateTime($endDate));
-		$hackathon->set('location', $location);
-		$hackathon->set('logoUrl', $logoUrl);
-		$hackathon->set('coverUrl', $coverUrl);
-		$hackathon->set('websiteUrl', $eventUrl);
-		$hackathon->save();
-	}
+	// Create a new Hackathon if query result is empty.
+	$hackathon = (empty($results)) ? ParseObject::create('Hackathon') : $results[0];
+
+	$hackathon->set('name', $name);
+	$hackathon->set('startDate', new DateTime($startDate));
+	$hackathon->set('endDate', new DateTime($endDate));
+	$hackathon->set('location', $location);
+	$hackathon->set('logoUrl', $logoUrl);
+	$hackathon->set('coverUrl', $coverUrl);
+	$hackathon->set('websiteUrl', $eventUrl);
+
+	// Update Hackathon table row.
+	$hackathon->save();
 }
-
-echo 'Success';
 
 ?>
