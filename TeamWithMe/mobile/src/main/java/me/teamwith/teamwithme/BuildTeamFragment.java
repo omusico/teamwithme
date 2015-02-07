@@ -21,8 +21,8 @@ public class BuildTeamFragment extends Fragment {
      * @return A new instance of fragment BuildTeamFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Profile newInstance() {
-        Profile fragment = new Profile();
+    public static BuildTeamFragment newInstance() {
+        BuildTeamFragment fragment = new BuildTeamFragment();
         return fragment;
     }
 
