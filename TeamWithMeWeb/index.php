@@ -13,7 +13,24 @@ $master_key = 't74hVJqag2nX7K5YaIpCgGt8Fkr8iH4eNrmRtSXJ';
 
 ParseClient::initialize($app_id, $rest_key, $master_key);
 
+$query = new ParseQuery('_User');
+$results = $query->find();
+
+$data = array();
+
+foreach ($results as $result)
+{
+	$data[] = array(
+		'name' => $result->get('name'),
+		'email' => $result->get('email'),
+	);
+}
+
 ?>
+
+<script>
+	var userData = <?php echo json_encode($data) ?>;
+</script>
 
 <!DOCTYPE>
 <html lang="en">
@@ -29,6 +46,7 @@ ParseClient::initialize($app_id, $rest_key, $master_key);
 		<script type='text/javascript' src="js/three.min.js"></script>
 		<script type='text/javascript' src="js/request_animation_frame.js"></script>
 		<script type='text/javascript' src="js/graphics.js"></script>
+		<script src="http://mrdoob.github.com/three.js/examples/fonts/optimer_bold.typeface.js"></script>
 
 		<title>Team With Me</title>
 	</head>
@@ -42,23 +60,13 @@ ParseClient::initialize($app_id, $rest_key, $master_key);
 		</div>
 		<div class="container">
 			<div class="main-container">
-				<div class="col-xs-8">
+				<div class="col-xs-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">Graphics</h4>
 						</div>
 						<div class="panel-body">
 							<div id="webGL" style="margin: 0; overflow: hidden;"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">Data Plots</h4>
-						</div>
-						<div class="panel-body">
-							To Do
 						</div>
 					</div>
 				</div>

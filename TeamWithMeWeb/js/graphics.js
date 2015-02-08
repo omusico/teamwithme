@@ -43,13 +43,10 @@ $(document).ready(function() {
     d_light.position.set(0, 1, 1);
     scene.add(d_light);
 
-    var geometry = new THREE.BoxGeometry(4, 4, 4);
-    var material = new THREE.MeshLambertMaterial({ color: 0x3399FF });
-    var cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
     // Initialize camera position
     camera.position.z = 10;
+
+    buildNodes();
 
     run();
 
@@ -60,15 +57,71 @@ $(document).ready(function() {
         renderer.setSize(container.innerWidth(), canvasHeight);
     }
 
+    function buildNodes()
+    {
+        var nodeCount = 16;
+        var nodeRadius = 0.15;
+        var segments = 10;
+        var graphRadius = 3.5;
+
+        var geometry = new THREE.SphereGeometry(nodeRadius, segments, segments);
+        var material = new THREE.MeshLambertMaterial({ color: 0x3399ff });
+        var textMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+        var lineMaterial = [
+            material,
+            new THREE.LineBasicMaterial({ color: 0xFF3333 })
+        ];
+
+        graph = new THREE.Object3D();
+        nodeList = new THREE.Object3D();
+        edgeList = new THREE.Object3D();
+        textList = new THREE.Object3D();
+        graph.add(nodeList);
+        graph.add(edgeList);
+        graph.add(textList);
+        scene.add(graph);
+
+        for (var i = 0; i < nodeCount; i++)
+        {
+            var theta = i * (2 * Math.PI / nodeCount);
+            var node = new THREE.Mesh(geometry, material);
+            node.position.x = Math.cos(theta) * graphRadius;
+            node.position.y = Math.sin(theta) * graphRadius;
+            nodeList.add(node);
+
+            var textGeometry = new THREE.TextGeometry(userData[i].name, { font: 'optimer', weight: 'bold', height: 0.001, size: 0.2 });
+            textMesh = new THREE.Mesh(textGeometry, textMaterial);
+            textMesh.position.x = Math.cos(theta) * (graphRadius * 1.1);
+            if (textMesh.position.x < 0)
+            {
+                textMesh.position.x -= (0.14 * userData[i].name.length);
+            }
+            textMesh.position.y = Math.sin(theta) * (graphRadius * 1.1);
+            textList.add(textMesh);
+
+            for (var j = 0; j < nodeList.children.length; j++)
+            {
+                if (Math.random() < 0.6)
+                    continue;
+
+                var lineGeometry = new THREE.Geometry();
+                lineGeometry.vertices.push(node.position);
+                lineGeometry.vertices.push(nodeList.children[j].position);
+
+                var n = Math.floor(Math.random() * lineMaterial.length);
+                
+                var line = new THREE.Line(lineGeometry, lineMaterial[n]);
+                edgeList.add(line);
+            }
+        }
+    }
+
     function run()
     {
         // Render the scene
         renderer.render(scene, camera);
 
-        cube.rotation.x += 0.005;
-        cube.rotation.y += 0.008;
-
         // Request another frame
-        requestAnimationFrame(run);
+        // requestAnimationFrame(run);
     }
 });

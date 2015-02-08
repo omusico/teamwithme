@@ -25,7 +25,7 @@ $userCount = 8;
 
 for ($i = 0; $i < $userCount; $i++)
 {
-	// Get a random from the generator.
+	// Get a random name from the generator.
 	$webName = file_get_html($url)->find('div[class=info]')[0]->find('div[class=address]')[0]->find('h3')[0]->innertext;
 	$nameToken = explode(' ', $webName);
 

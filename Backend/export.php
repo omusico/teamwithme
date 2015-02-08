@@ -4,6 +4,7 @@ require 'vendor/autoload.php';
 use Parse\ParseClient;
 use Parse\ParseQuery;
 use Parse\ParseObject;
+use Parse\ParseException;
 
 date_default_timezone_set('UTC');
 
@@ -133,6 +134,45 @@ foreach ($results as $result)
 }
 
 exportToCSV($data, 'data/sponsor.csv');
+
+/**
+
+	UserSkill
+
+ */
+
+// $query = new ParseQuery('UserSkill');
+// $results = $query->find();
+
+// $data = array();
+
+// foreach ($results as $result)
+// {
+// 	$query = new ParseQuery('User');
+// 	$user = $query->get($result->get('userId'));
+
+// 	try
+// 	{
+// 		$user = $query->get($result->get('userId'));
+// 	}
+// 	catch (ParseException $ex) {}
+
+// 	$query = new ParseQuery('Skill');
+// 	$skill = $query->get($result->get('skillId'));
+
+// 	try
+// 	{
+// 		$skill = $query->get($result->get('skillId'));
+// 	}
+// 	catch (ParseException $ex) {}
+
+// 	$data[] = array(
+// 		'User' => $user->get('name'),
+// 		'Skill' => $skill->get('name'),
+// 	);
+// }
+
+// exportToCSV($data, 'data/user_skill.csv');
 
 /**
 
