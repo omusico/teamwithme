@@ -72,7 +72,7 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 2:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, BuildTeamFragment.newInstance("xKYreGKk3X"))
+                        .replace(R.id.container, BuildTeamFilter.newInstance("xKYreGKk3X"))
                         .commit();
                 mTitle = "Build A Team";
                 break;

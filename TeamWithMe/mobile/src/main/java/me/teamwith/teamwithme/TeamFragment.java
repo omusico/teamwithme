@@ -2,6 +2,7 @@ package me.teamwith.teamwithme;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -64,6 +66,42 @@ public class TeamFragment extends Fragment {
             userID = getArguments().getString(ARG_USER_ID);
         }
 
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("TeamUser");
+        query.whereEqualTo("teamId", 1); // Our team id is 1, I'm hardcoding it for demo purposes.
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> members, ParseException e) {
+                if (e == null) {
+                    // Grab the layout where we will just simply append team members.
+                    final LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.teamLayout);
+
+                    // We loop through each team member and get their name
+                    for (int i = 0; i < members.size(); i++) {
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+                        query.whereEqualTo("objectId", members.get(i).getString("userId"));
+                        query.findInBackground(new FindCallback<ParseObject>() {
+                            public void done(List<ParseObject> match, ParseException e) {
+                                if (e == null) {
+                                    Context context = getActivity().getApplicationContext();
+                                    TextView text = new TextView(context);
+                                    text.setText(match.get(0).getString("name"));
+                                    text.setTextColor(Color.BLACK);
+                                    layout.addView(text);
+                                } else {
+                                    Log.wtf("TeamFragment", "Couldn't load member info.");
+                                }
+                            }
+                        });
+                    }
+
+                } else {
+                    Log.wtf("TeamFragment", "Couldn't load team!");
+                }
+            }
+        });
+
+
+
+        /*
         // Get current user's profile picture, name and skills.
         ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
         query.whereEqualTo("objectId", userID);
@@ -129,6 +167,7 @@ public class TeamFragment extends Fragment {
                 }
             }
         });
+        */
     }
 
 
@@ -136,7 +175,7 @@ public class TeamFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_team, container, false);
+        return inflater.inflate(R.layout.new_fragment_team, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
