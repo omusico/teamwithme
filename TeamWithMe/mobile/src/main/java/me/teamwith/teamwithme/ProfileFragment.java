@@ -1,6 +1,7 @@
 package me.teamwith.teamwithme;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -80,6 +81,7 @@ public class ProfileFragment extends Fragment {
                         CheckBox box = new CheckBox(myActivity.getApplicationContext());
                         box.setId(i);
                         box.setText(parseObjects.get(i).getString("name"));
+                        box.setTextColor(Color.BLACK);
                         boxes.add(box);
                         skillLayout.addView(boxes.get(i));
                     }
