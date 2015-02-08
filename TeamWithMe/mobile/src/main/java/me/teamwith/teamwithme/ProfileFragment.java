@@ -3,11 +3,19 @@ package me.teamwith.teamwithme;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.parse.*;
 
 import java.util.List;
@@ -49,11 +57,41 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mUserId = getArguments().getString(ARG_USER_ID);
         }
 
+    }
+
+    private void setupSkillTicks(final Activity myActivity) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Skill");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> parseObjects, ParseException e) {
+                if (e == null) {
+                    LinearLayout skillLayout = (LinearLayout) myActivity.findViewById(R.id.skillLayout);
+
+                    for (int i = 0; i < parseObjects.size(); i++) {
+                        CheckBox box = new CheckBox(myActivity.getApplicationContext());
+                        box.setText(parseObjects.get(i).getString("name"));
+                        skillLayout.addView(box);
+                    }
+                } else {
+                    Log.wtf("ProfileFragment", "No skills found :(");
+                }
+            }
+        });
+    }
+
+    private void getParseData()
+    {
+        /*
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Skill");
+        //shitty fix
+        for (int i = 0; i < 28; i++ )
+        {
+
+        }
         query.whereEqualTo("name", "Go");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> skillList, ParseException e) {
@@ -69,6 +107,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+        */
     }
 
     @Override
@@ -88,6 +127,9 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        this.setupSkillTicks(activity);
+
         try {
             mListener = (ProfileFragment.OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -59,6 +60,7 @@ public class TeamFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Get current user's profile picture, name and skills.
         ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
         query.whereEqualTo("objectId", userID);
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -68,6 +70,9 @@ public class TeamFragment extends Fragment {
                     ImageView imageView = (ImageView) getActivity().findViewById(R.id.imageButton);
 
                     String url = object.get(0).getString("githubPictureUrl");
+                    String name = object.get(0).getString("name");
+                    TextView view = (TextView) getActivity().findViewById(R.id.user1);
+                    view.setText(name);
                     Picasso.with(context).load(url).into(imageView);
                 } else {
                     Log.i("team", "It's not working.");
