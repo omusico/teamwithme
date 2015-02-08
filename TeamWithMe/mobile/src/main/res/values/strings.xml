@@ -5,5 +5,9 @@
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello">Hello Team</string>
 
+    <string name="what_hackathon">What hackathon are you attending?</string>
+    <string name="what_interest">What are you interested in?</string>
+    <string name="what_looking">What are you looking for in a team member?</string>
 </resources>
