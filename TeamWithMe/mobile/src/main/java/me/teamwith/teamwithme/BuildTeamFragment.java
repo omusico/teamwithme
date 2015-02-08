@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.parse.FindCallback;
@@ -133,7 +134,26 @@ public class BuildTeamFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_build_team, container, false);
+        View view = inflater.inflate(R.layout.fragment_build_team, container, false);
+        final Button yesBtn = (Button) view.findViewById(R.id.yesBtn);
+        yesBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, BuildTeamFragment.newInstance("xKYreGKk3X", "hackathon"))
+                        .commit();
+            }
+        });
+
+        final Button noBtn = (Button) view.findViewById(R.id.noBtn);
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, BuildTeamFragment.newInstance("xKYreGKk3X", "hackathon"))
+                        .commit();
+            }
+        });
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
