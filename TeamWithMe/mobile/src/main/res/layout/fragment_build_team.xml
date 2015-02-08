@@ -43,6 +43,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Name"
+                android:id="@+id/nameTxt"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailTxt"
                 android:text="Name"/>
 
             <TableRow
@@ -74,12 +81,21 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/rightLayout">>
+            android:id="@+id/rightLayout">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Skills" />
+                android:text="Skills"
+                android:id="@+id/skillsTxt"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/buildSkillLayout">
+
+                </LinearLayout>
 
             </LinearLayout>
     </LinearLayout>

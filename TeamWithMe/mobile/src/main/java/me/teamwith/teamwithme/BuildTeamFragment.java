@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -108,6 +110,27 @@ public class BuildTeamFragment extends Fragment {
                         }
                     }
 
+                    final Vector<String> skillStr = new Vector<String>(skills.size());
+                    final LinearLayout skillBuildLayout = (LinearLayout) getActivity().findViewById(R.id.buildSkillLayout);
+
+                    for (int x = 0; x < skills.size(); x++) {
+                        ParseQuery<ParseObject> qry = ParseQuery.getQuery("Skill");
+                        qry.whereEqualTo("objectId", skills.get(x).getString("skillId"));
+                        qry.findInBackground(new FindCallback<ParseObject>() {
+                            public void done(List<ParseObject> skills, ParseException e) {
+                                if (e == null) {
+                                    TextView v = new TextView(getActivity().getApplicationContext());
+                                    v.setText("* " + skills.get(0).getString("name"));
+                                    v.setTextColor(Color.BLACK);
+                                    skillBuildLayout.addView(v);
+                                    Log.i("Build", "Added " + skills.get(0).getString("name"));
+                                } else {
+                                    Log.wtf("Build", "Shit");
+                                }
+                            }
+                        });
+                    }
+
                     // Get name, etc.
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
                     query.whereEqualTo("objectId", user.getString("userId"));
@@ -116,6 +139,12 @@ public class BuildTeamFragment extends Fragment {
                             if (e == null) {
                                 String name = people.get(0).getString("name");
                                 String email = people.get(0).getString("email");
+
+                                TextView nameTxt = (TextView) getActivity().findViewById(R.id.nameTxt);
+                                TextView emailTxt = (TextView) getActivity().findViewById(R.id.emailTxt);
+
+                                nameTxt.setText(name);
+                                emailTxt.setText(email);
 
                                 // TODO: Update the view elements with the data
                             } else {
@@ -139,7 +168,7 @@ public class BuildTeamFragment extends Fragment {
         yesBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, BuildTeamFragment.newInstance("xKYreGKk3X", "hackathon"))
+                        .replace(R.id.container, BuildTeamFragment.newInstance("xKYreGKk3X", "VTHacks"))
                         .commit();
             }
         });
@@ -148,7 +177,7 @@ public class BuildTeamFragment extends Fragment {
         noBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, BuildTeamFragment.newInstance("xKYreGKk3X", "hackathon"))
+                        .replace(R.id.container, BuildTeamFragment.newInstance("xKYreGKk3X", "VTHacks"))
                         .commit();
             }
         });
