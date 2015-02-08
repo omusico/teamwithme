@@ -62,20 +62,25 @@ public class MainActivity extends ActionBarActivity
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, ProfileFragment.newInstance())
                         .commit();
+                mTitle = "Profile";
                 break;
             case 1:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, TeamFragment.newInstance())
                         .commit();
+                mTitle = "Team";
                 break;
             case 2:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, BuildTeamFragment.newInstance())
                         .commit();
+                mTitle = "Build A Team";
                 break;
             default:
                 break;
         }
+
+        this.restoreActionBar();
     }
 
     public void onSectionAttached(int number) {
