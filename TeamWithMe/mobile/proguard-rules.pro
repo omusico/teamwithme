@@ -18,3 +18,4 @@
 
 # Iconify
 -keep class com.joanzapata.** { *; }
+
