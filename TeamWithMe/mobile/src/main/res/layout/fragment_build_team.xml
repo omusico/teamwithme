@@ -36,7 +36,8 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:id="@+id/LeftLayout">>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,7 +48,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/emailTxt" />
+                android:id="@+id/emailTxt"
+                android:text="Name"/>
+
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes"
+                android:id="@+id/yesBtn"/>
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                android:id="@+id/noBtn"/>
 
             </LinearLayout>
 
@@ -55,7 +70,8 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:id="@+id/rightLayout">
 
             <TextView
                 android:layout_width="wrap_content"
