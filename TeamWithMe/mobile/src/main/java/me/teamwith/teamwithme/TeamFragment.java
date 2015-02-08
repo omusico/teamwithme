@@ -79,7 +79,54 @@ public class TeamFragment extends Fragment {
                 }
             }
         });
+
+        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("TeamUser");
+        query2.whereEqualTo("userId", userID);
+        query2.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> object, ParseException e) {
+                if (e == null) {
+
+                    ParseQuery<ParseObject> query3 = ParseQuery.getQuery("TeamUser");
+                    query3.whereEqualTo("teamId", object.get(0).getString("teamId"));
+                    query3.findInBackground(new FindCallback<ParseObject>() {
+                        public void done(List<ParseObject> object, ParseException e) {
+                            if (e == null) {
+
+                                for (int i = 0; i < object.size(); i++) {
+                                    ParseQuery<ParseObject> query4 = ParseQuery.getQuery("TeamUser");
+                                    query4.whereEqualTo("userId", object.get(i).getString("userId"));
+                                    query4.findInBackground(new FindCallback<ParseObject>() {
+                                        public void done(List<ParseObject> object, ParseException e) {
+                                            if (e == null) {
+
+                                                Context context = getActivity().getApplicationContext();
+                                                ImageView imageView = (ImageView) getActivity().findViewById(R.id.imageButton);
+
+                                                String url = object.get(0).getString("githubPictureUrl");
+                                                String name = object.get(0).getString("name");
+                                                TextView view = (TextView) getActivity().findViewById(R.id.user1);
+                                                view.setText(name);
+                                                Picasso.with(context).load(url).into(imageView);
+
+                                            } else {
+                                                Log.i("team", "It's not working.");
+                                            }
+                                        }
+                                    });
+                                }
+                            } else {
+                                Log.i("team", "It's not working.");
+                            }
+                        }
+                    });
+
+                } else {
+                    Log.i("team", "It's not working.");
+                }
+            }
+        });
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
