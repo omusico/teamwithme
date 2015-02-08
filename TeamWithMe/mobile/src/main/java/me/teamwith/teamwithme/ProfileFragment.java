@@ -21,14 +21,9 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_USER_ID = "userId";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mUserId;
 
     private OnFragmentInteractionListener mListener;
 
@@ -36,12 +31,13 @@ public class ProfileFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
+     * @param userId The ID of the user that is signed in.
      * @return A new instance of fragment Profile.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance() {
+    public static ProfileFragment newInstance(String userId) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_USER_ID, userId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,18 +50,22 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mUserId = getArguments().getString(ARG_USER_ID);
         }
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-        query.whereEqualTo("username", "cupcake");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Skill");
+        query.whereEqualTo("name", "Go");
         query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> objects, ParseException e) {
+            public void done(List<ParseObject> skillList, ParseException e) {
                 if (e == null) {
-                    Log.i("Profile", objects.get(0).getString("username"));
+                    String skillID = skillList.get(0).getObjectId();
+                    ParseObject userSkill = new ParseObject("UserSkill");
+                    userSkill.put("userId", "xKYreGKk3X");
+                    userSkill.put("skillId", skillID);
+                    userSkill.saveEventually();
+                    Log.i("PF", "Saved (hopefully)");
                 } else {
-                    Log.wtf("Profile", e.getMessage());
+                    Log.wtf("PF", "Oh no :(");
                 }
             }
         });
@@ -102,18 +102,7 @@ public class ProfileFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 

@@ -31,9 +31,9 @@ import java.util.List;
  */
 public class TeamFragment extends Fragment {
 
-
+    private static final String ARG_USER_ID = "userId";
     private OnFragmentInteractionListener mListener;
-    public static ParseUser userID;
+    public static String userID;
 
     /**
      * Use this factory method to create a new instance of
@@ -41,9 +41,11 @@ public class TeamFragment extends Fragment {
      *
      * @return A new instance of fragment Team.
      */
-    public static TeamFragment newInstance(ParseUser iD) {
+
+    public static TeamFragment newInstance(String iD) {
         TeamFragment fragment = new TeamFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_USER_ID, iD);
         fragment.setArguments(args);
         userID = iD;
         return fragment;
@@ -58,14 +60,14 @@ public class TeamFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-        query.whereEqualTo();
+        query.whereEqualTo("objectId", userID);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> object, ParseException e) {
                 if (e == null) {
                     Context context = getActivity().getApplicationContext();
                     ImageView imageView = (ImageView) getActivity().findViewById(R.id.imageButton);
 
-                    String url = userID.getString("githubPictureUrl");
+                    String url = object.get(0).getString("githubPictureUrl");
                     Picasso.with(context).load(url).into(imageView);
                 } else {
                     Log.i("team", "It's not working.");
