@@ -28,6 +28,7 @@ ParseClient::initialize($app_id, $rest_key, $master_key);
 		<script type='text/javascript' src="js/jquery.min.js"></script>
 		<script type='text/javascript' src="js/three.min.js"></script>
 		<script type='text/javascript' src="js/request_animation_frame.js"></script>
+		<script type='text/javascript' src="js/graphics.js"></script>
 
 		<title>Team With Me</title>
 	</head>
@@ -47,7 +48,7 @@ ParseClient::initialize($app_id, $rest_key, $master_key);
 							<h4 class="panel-title">Graphics</h4>
 						</div>
 						<div class="panel-body">
-							To Do
+							<div id="webGL" style="margin: 0; overflow: hidden;"></div>
 						</div>
 					</div>
 				</div>
