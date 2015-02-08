@@ -67,6 +67,19 @@ public class ProfileFragment extends Fragment {
         if (getArguments() != null) {
             mUserId = getArguments().getString(ARG_USER_ID);
         }
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+        query.whereEqualTo("objectId", mUserId);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> parseObjects, ParseException e) {
+                if (e == null) {
+                    TextView name = (TextView) getActivity().findViewById(R.id.nameTextView);
+                    name.setText(parseObjects.get(0).getString("name"));
+                } else {
+                    Log.wtf("ProfileFragment", "Oh na na, what's my name? ... Really though");
+                }
+            }
+        });
     }
 
     private void setupSkillTicks(final Activity myActivity) {
@@ -157,8 +170,10 @@ public class ProfileFragment extends Fragment {
         if (this.boxes == null)
             this.boxes = new Vector<CheckBox>();
 
-        if (this.boxes.isEmpty())
+        if (this.boxes.isEmpty()) {
             this.setupSkillTicks(activity);
+        }
+        Log.d("Hey", "Filled.");
 
         try {
             mListener = (ProfileFragment.OnFragmentInteractionListener) activity;

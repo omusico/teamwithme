@@ -21,19 +21,19 @@
                 android:text="@string/what_hackathon"
                 android:id="@+id/qOne" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/what_interest"
-                android:id="@+id/qTwo" />
+                android:hint="Hackathons..."
+                android:popupBackground="@color/background_material_dark"
+                android:id="@+id/hackathonView" />
 
-            <TextView
+            <Button
+                android:layout_marginTop="50dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/what_looking"
-                android:id="@+id/qThree" />
+                android:text="Next"
+                android:id="@+id/nextBtn"/>
 
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package me.teamwith.teamwithme;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,14 +9,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+import java.util.Random;
+import java.util.Vector;
 
 /**
  * A fragment to assist with building a team in an intuitive manner.
  */
 public class BuildTeamFragment extends Fragment {
     private static final String ARG_USER_ID = "userId";
+    private static final String ARG_HACKATHON = "hackathon";
 
     private String mUserId;
+    private String mHackathon;
 
     private OnFragmentInteractionListener mListener;
 
@@ -25,10 +43,11 @@ public class BuildTeamFragment extends Fragment {
      * @return A new instance of fragment BuildTeamFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BuildTeamFragment newInstance(String userId) {
+    public static BuildTeamFragment newInstance(String userId, String hackathon) {
         BuildTeamFragment fragment = new BuildTeamFragment();
         Bundle args = new Bundle();
         args.putString(ARG_USER_ID, userId);
+        args.putString(ARG_HACKATHON, hackathon);
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,13 +59,130 @@ public class BuildTeamFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            mUserId = getArguments().getString(ARG_USER_ID);
+            mHackathon = getArguments().getString(ARG_HACKATHON);
+        }
+
+        // Get the URL's for the hackathon images
+        /*
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Hackathon");
+        query.whereEqualTo("name", mHackathon);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> events, ParseException e) {
+                if (e == null) {
+                    String logoUrl = events.get(0).getString("logoUrl");
+                    String coverUrl = events.get(0).getString("coverUrl");
+
+                    ImageView logo = (ImageView) getActivity().findViewById(R.id.hackLogo);
+                    ImageView cover = (ImageView) getActivity().findViewById(R.id.hackCover);
+
+                    Picasso.with(getActivity().getApplicationContext())
+                           .load(logoUrl)
+                           .into(logo);
+
+                    Picasso.with(getActivity().getApplicationContext())
+                            .load(coverUrl)
+                            .into(cover);
+                } else {
+                    Log.wtf("BuildTeamFilter", "Couldn't load hackathon data.");
+                }
+            }
+        });
+        */
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserSkill");
+        query.whereNotEqualTo("userId", "xKYreGKk3X");
+        query.whereNotEqualTo("userId", "na9edSCXZf");
+        query.whereNotEqualTo("userId", "6VEKUs5w8T");
+        query.whereNotEqualTo("userId", "S7Fcopiwzx");
+        query.whereNotEqualTo("userId", "hPF2eZxxvB");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> users, ParseException e) {
+                if (e == null) {
+                    Random r = new Random();
+                    ParseObject user = users.get(r.nextInt(users.size()));
+                    Vector<ParseObject> skills = new Vector<ParseObject>();
+                    for (int i = 0; i < users.size(); i++) {
+                        if (users.get(i).getString("userId").equals(user.getString("userId"))) {
+                            skills.add(users.get(i));
+                        }
+                    }
+
+                    final Vector<String> skillStr = new Vector<String>(skills.size());
+                    final LinearLayout skillBuildLayout = (LinearLayout) getActivity().findViewById(R.id.buildSkillLayout);
+
+                    for (int x = 0; x < skills.size(); x++) {
+                        ParseQuery<ParseObject> qry = ParseQuery.getQuery("Skill");
+                        qry.whereEqualTo("objectId", skills.get(x).getString("skillId"));
+                        qry.findInBackground(new FindCallback<ParseObject>() {
+                            public void done(List<ParseObject> skills, ParseException e) {
+                                if (e == null) {
+                                    TextView v = new TextView(getActivity().getApplicationContext());
+                                    v.setText("* " + skills.get(0).getString("name"));
+                                    v.setTextColor(Color.BLACK);
+                                    skillBuildLayout.addView(v);
+                                    Log.i("Build", "Added " + skills.get(0).getString("name"));
+                                } else {
+                                    Log.wtf("Build", "Shit");
+                                }
+                            }
+                        });
+                    }
+
+                    // Get name, etc.
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+                    query.whereEqualTo("objectId", user.getString("userId"));
+                    query.findInBackground(new FindCallback<ParseObject>() {
+                        public void done(List<ParseObject> people, ParseException e) {
+                            if (e == null) {
+                                String name = people.get(0).getString("name");
+                                String email = people.get(0).getString("email");
+
+                                TextView nameTxt = (TextView) getActivity().findViewById(R.id.nameTxt);
+                                TextView emailTxt = (TextView) getActivity().findViewById(R.id.emailTxt);
+
+                                nameTxt.setText(name);
+                                emailTxt.setText(email);
+
+                                // TODO: Update the view elements with the data
+                            } else {
+                                Log.wtf("BuildTeamFragment", "Couldn't find shit");
+                            }
+                        }
+                    });
+                } else {
+                    Log.wtf("BuildTeamFragment", "Oh noooo");
+                }
+            }
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_build_team, container, false);
+        View view = inflater.inflate(R.layout.fragment_build_team, container, false);
+        final Button yesBtn = (Button) view.findViewById(R.id.yesBtn);
+        yesBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, BuildTeamFragment.newInstance("xKYreGKk3X", "VTHacks"))
+                        .commit();
+            }
+        });
+
+        final Button noBtn = (Button) view.findViewById(R.id.noBtn);
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, BuildTeamFragment.newInstance("xKYreGKk3X", "VTHacks"))
+                        .commit();
+            }
+        });
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
