@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- # Start Parse -->
     <string name="PARSE_APPLICATION_ID.template"></string>
     <string name="PARSE_CLIENT_KEY.template"></string>
+    <!-- # End Parse -->
+
+    <!-- # Start Facebook -->
+    <string name="facebook_app_id.template"></string>
+    <!-- # End Facebook -->
 
 </resources>
