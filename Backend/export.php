@@ -172,4 +172,6 @@ foreach ($results as $result)
 	// );
 }
 
+echo 'Success';
+
 ?>
