@@ -18,6 +18,9 @@ ParseClient::initialize($app_id, $rest_key, $master_key);
 
 $url = 'http://www.fakenamegenerator.com/advanced.php?t=country&n%5B%5D=us&c%5B%5D=us&gen=50&age-min=19&age-max=85';
 
+$query = new ParseQuery('Skill');
+$skills = $query->find();
+
 $userCount = 8;
 
 for ($i = 0; $i < $userCount; $i++)
@@ -36,6 +39,19 @@ for ($i = 0; $i < $userCount; $i++)
 	$user->set('password', 'password');
 	$user->set('name', $name);
 	$user->signUp();
+
+	$skillCount = rand(1, 6);
+	shuffle($skills);
+
+	for ($j = 0; $j < $skillCount; $j++)
+	{
+		$userSkill = ParseObject::create('UserSkill');
+		$userSkill->set('userId', $user->getObjectId());
+		$userSkill->set('skillId', $skills[$j]->getObjectId());
+		$userSkill->save();
+	}
 }
+
+echo 'Success';
 
 ?>

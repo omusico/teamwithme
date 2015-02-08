@@ -79,4 +79,6 @@ foreach ($page->find('div[class=event-wrapper]') as $e)
 	$hackathon->save();
 }
 
+echo 'Success';
+
 ?>
