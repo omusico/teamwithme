@@ -39,6 +39,7 @@
             android:layout_weight="1"
             android:id="@+id/LeftLayout">
 
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,20 +55,29 @@
                 android:text="Email"
                 android:textSize="20dp"/>
 
-            <Button
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Yes"
-                android:id="@+id/yesBtn"/>
-            <Button
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No"
-                android:id="@+id/noBtn"/>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.12">
 
-            </LinearLayout>
+                <Button
+                    android:layout_marginTop="20dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:text="Yes"
+                    android:id="@+id/yesBtn"/>
+
+                <Button
+                    android:layout_marginTop="20dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:text="No"
+                    android:id="@+id/noBtn" />
+
+            </TableRow>
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
