@@ -25,13 +25,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Name"
-                android:id="@+id/nameTextView" />
+                android:id="@+id/nameTextView"
+                android:layout_marginBottom="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Skills"
+                android:text="My Skills"
                 android:id="@+id/skillsTextView" />
 
             <LinearLayout android:orientation="vertical"
