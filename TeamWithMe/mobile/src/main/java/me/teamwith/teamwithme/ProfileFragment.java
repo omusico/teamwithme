@@ -157,8 +157,10 @@ public class ProfileFragment extends Fragment {
         if (this.boxes == null)
             this.boxes = new Vector<CheckBox>();
 
-        if (this.boxes.isEmpty())
+        if (this.boxes.isEmpty()) {
             this.setupSkillTicks(activity);
+        }
+        Log.d("Hey", "Filled.");
 
         try {
             mListener = (ProfileFragment.OnFragmentInteractionListener) activity;

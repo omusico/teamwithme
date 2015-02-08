@@ -10,9 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * A fragment to
+ * A fragment to take input as to what hackathon the user is attending.
  */
 public class BuildTeamFilter extends Fragment {
+    private static final String ARG_USER_ID = "userId";
+
+    private String mUserId;
+
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -21,8 +25,11 @@ public class BuildTeamFilter extends Fragment {
      * @return A new instance of fragment BuildTeamFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BuildTeamFilter newInstance() {
+    public static BuildTeamFilter newInstance(String userId) {
         BuildTeamFilter fragment = new BuildTeamFilter();
+        Bundle args = new Bundle();
+        args.putString(ARG_USER_ID, userId);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -33,6 +40,10 @@ public class BuildTeamFilter extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            mUserId = getArguments().getString(ARG_USER_ID);
+        }
     }
 
     @Override

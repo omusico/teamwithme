@@ -53,9 +53,9 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, ProfileFragment.newInstance("xKYreGKk3X"))
-                .commit();
+        //fragmentManager.beginTransaction()
+        //        .replace(R.id.container, ProfileFragment.newInstance("xKYreGKk3X"))
+        //        .commit();
 
         switch(position) {
             case 0:

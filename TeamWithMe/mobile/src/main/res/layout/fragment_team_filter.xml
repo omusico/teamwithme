@@ -21,19 +21,11 @@
                 android:text="@string/what_hackathon"
                 android:id="@+id/qOne" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/what_interest"
-                android:id="@+id/qTwo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/what_looking"
-                android:id="@+id/qThree" />
+                android:hint="Hackathons..."
+                android:id="@+id/hackathonView" />
 
         </LinearLayout>
 

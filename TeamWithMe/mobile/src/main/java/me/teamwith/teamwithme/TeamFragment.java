@@ -48,7 +48,7 @@ public class TeamFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_USER_ID, iD);
         fragment.setArguments(args);
-        userID = iD;
+        //userID = iD;
         return fragment;
     }
 
@@ -59,6 +59,10 @@ public class TeamFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            userID = getArguments().getString(ARG_USER_ID);
+        }
 
         // Get current user's profile picture, name and skills.
         ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");

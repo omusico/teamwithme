@@ -40,6 +40,10 @@ public class BuildTeamFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            mUserId = getArguments().getString(ARG_USER_ID);
+        }
     }
 
     @Override
