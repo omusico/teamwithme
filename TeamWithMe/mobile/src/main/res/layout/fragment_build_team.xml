@@ -41,7 +41,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name"/>
+                android:text="Name"
+                android:id="@+id/nameTxt"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailTxt" />
 
             </LinearLayout>
 
@@ -54,7 +60,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Skills" />
+                android:text="Skills"
+                android:id="@+id/skillsTxt"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/buildSkillLayout">
+
+                </LinearLayout>
 
             </LinearLayout>
     </LinearLayout>
