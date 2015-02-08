@@ -1,14 +1,25 @@
 package me.teamwith.teamwithme;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +33,7 @@ public class TeamFragment extends Fragment {
 
 
     private OnFragmentInteractionListener mListener;
+    public static ParseUser userID;
 
     /**
      * Use this factory method to create a new instance of
@@ -29,10 +41,11 @@ public class TeamFragment extends Fragment {
      *
      * @return A new instance of fragment Team.
      */
-    public static TeamFragment newInstance() {
+    public static TeamFragment newInstance(ParseUser iD) {
         TeamFragment fragment = new TeamFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+        userID = iD;
         return fragment;
     }
 
@@ -43,6 +56,22 @@ public class TeamFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+        query.whereEqualTo();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> object, ParseException e) {
+                if (e == null) {
+                    Context context = getActivity().getApplicationContext();
+                    ImageView imageView = (ImageView) getActivity().findViewById(R.id.imageButton);
+
+                    String url = userID.getString("githubPictureUrl");
+                    Picasso.with(context).load(url).into(imageView);
+                } else {
+                    Log.i("team", "It's not working.");
+                }
+            }
+        });
     }
 
     @Override
