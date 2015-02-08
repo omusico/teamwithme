@@ -7,7 +7,7 @@ $(document).ready(function() {
     var canvasHeight = 450;
 
     // Create renderer and add it to the container
-    var renderer = new THREE.WebGLRenderer({ antialias: false });
+    var renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(container.innerWidth(), canvasHeight);
     document.getElementById('webGL').appendChild(renderer.domElement);
 
