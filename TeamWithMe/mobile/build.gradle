@@ -28,4 +28,5 @@ dependencies {
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'com.joanzapata.android:android-iconify:1.0.9'
+    compile 'com.facebook.android:facebook-android-sdk:3.21.1'
 }

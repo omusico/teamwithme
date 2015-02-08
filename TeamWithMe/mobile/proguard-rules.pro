@@ -18,4 +18,7 @@
 
 # Iconify
 -keep class com.joanzapata.** { *; }
+
+# Picasso
 -dontwarn com.squareup.okhttp.**
+
