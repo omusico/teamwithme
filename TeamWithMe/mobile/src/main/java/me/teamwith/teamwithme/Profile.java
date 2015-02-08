@@ -5,9 +5,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.parse.*;
 
 import java.util.List;
@@ -29,6 +34,7 @@ public class Profile extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ParseObject userData;
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,17 +68,89 @@ public class Profile extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+        Log.i("Test", "testing");
+        this.getParseData();
+        //editText pass in context from the activity
+        //link, email,
+
+    }
+
+    private void getParseData()
+    {
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+//                query.whereEqualTo("username", "cupcake");
+//               query.findInBackground(new FindCallback<ParseObject>() {
+//                       public void done(List<ParseObject> objects, ParseException e) {
+//                               if (e == null) {
+//                                       Log.i("Profile", objects.get(0).getString("username"));
+//                                  } else {
+//                                     Log.wtf("Profile", e.getMessage());
+//                                }
+//                        }
+//            });
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+//        //equal to alex's entry
+//        query.whereEqualTo("objectId", "");
+//        query.findInBackground(new FindCallback<ParseObject>() {
+//            public void done(List<ParseObject> objects, ParseException e) {
+//                if (e == null) {
+//                    Log.i("Profile", objects.get(0).getString("username"));
+//                    userData = objects.get(0);
+//                } else {
+//                    Log.wtf("Profile", e.getMessage());
+//                }
+//            }
+//        });
+//        Log.d("Profile", "testing");
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-        query.whereEqualTo("username", "cupcake");
-        query.findInBackground(new FindCallback<ParseObject>() {
+            query.whereEqualTo("username", "cupcake");
+            query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null) {
-                    Log.i("Profile", objects.get(0).getString("username"));
-                } else {
-                    Log.wtf("Profile", e.getMessage());
+                      if (e == null) {
+                          ParseObject userSkill = new ParseObject("UserSkill");
+                          userSkill.put("skillId", objects.get(0).get("skillId"));
+                          userSkill.put("userId", objects.get(0).get("userId"));
+                          userSkill.saveInBackground();
+                             Log.i("Skill", objects.get(0).get("skillId").toString());
+
+                          Log.i("User", objects.get(0).get("userId").toString());
+
+                        } else {
+                             Log.wtf("Profile", e.getMessage());
+                       }
+                      }
+               });
+        Log.i("Test2", "testing2");
+
+
+        Log.i("Test3", "testing3");
+//            this.editTextFields();
+
+
+
+
+
+    }
+//if checked make in database
+// uncheck remove from database
+
+    private void editTextFields()
+    {
+        EditText editText = (EditText) this.getActivity().findViewById(R.id.email);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+
+                    handled = true;
                 }
+                return handled;
             }
         });
+
     }
 
     @Override
