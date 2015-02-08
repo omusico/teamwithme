@@ -20,6 +20,9 @@ import android.view.ViewGroup;
  */
 public class TeamFragment extends Fragment {
 
+    private static final String ARG_USER_ID = "userId";
+
+    private String mUserId;
 
     private OnFragmentInteractionListener mListener;
 
@@ -29,9 +32,10 @@ public class TeamFragment extends Fragment {
      *
      * @return A new instance of fragment Team.
      */
-    public static TeamFragment newInstance() {
+    public static TeamFragment newInstance(String userId) {
         TeamFragment fragment = new TeamFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_USER_ID, userId);
         fragment.setArguments(args);
         return fragment;
     }
