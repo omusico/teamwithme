@@ -10,9 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * A fragment to
+ * A fragment to assist with building a team in an intuitive manner.
  */
 public class BuildTeamFragment extends Fragment {
+    private static final String ARG_USER_ID = "userId";
+
+    private String mUserId;
+
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -21,8 +25,11 @@ public class BuildTeamFragment extends Fragment {
      * @return A new instance of fragment BuildTeamFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BuildTeamFragment newInstance() {
+    public static BuildTeamFragment newInstance(String userId) {
         BuildTeamFragment fragment = new BuildTeamFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_USER_ID, userId);
+        fragment.setArguments(args);
         return fragment;
     }
 
