@@ -53,14 +53,19 @@ public class ProfileFragment extends Fragment {
             mUserId = getArguments().getString(ARG_USER_ID);
         }
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-        query.whereEqualTo("username", "cupcake");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Skill");
+        query.whereEqualTo("name", "Go");
         query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> objects, ParseException e) {
+            public void done(List<ParseObject> skillList, ParseException e) {
                 if (e == null) {
-                    Log.i("Profile", objects.get(0).getString("username"));
+                    String skillID = skillList.get(0).getObjectId();
+                    ParseObject userSkill = new ParseObject("UserSkill");
+                    userSkill.put("userId", "xKYreGKk3X");
+                    userSkill.put("skillId", skillID);
+                    userSkill.saveEventually();
+                    Log.i("PF", "Saved (hopefully)");
                 } else {
-                    Log.wtf("Profile", e.getMessage());
+                    Log.wtf("PF", "Oh no :(");
                 }
             }
         });
